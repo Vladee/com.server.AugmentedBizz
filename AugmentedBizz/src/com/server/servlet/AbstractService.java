@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -32,32 +33,13 @@ import com.server.parser.AbstractServiceParser;
 public abstract class AbstractService extends HttpServlet {
 	
 	protected AbstractServiceParser parser = null;
+	private Objectify objectifyInstance = null;
 	
 	static {
 		//register all datastore entities
 		ObjectifyService.register(Indicator.class);
 		ObjectifyService.register(Model.class);
 		ObjectifyService.register(Target.class);
-	}
-	
-	public AbstractService()
-	{
-	}
-	
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
-	{
-		try
-		{
-			checkQueryParameters(req.getParameterMap());
-			String responseString = getServiceParser(req).parseServiceTransferEntity(createServiceEntityFromRequest(req));
-			resp.setContentType(getServiceContentType(req));
-			resp.getWriter().println(responseString);
-		}
-		catch(Exception e)
-		{
-			resp.setStatus(400);
-		}
 	}
 	
 	/**
@@ -84,4 +66,19 @@ public abstract class AbstractService extends HttpServlet {
 	 * @return The content type of the response data based upon the request
 	 */
 	protected abstract String getServiceContentType(HttpServletRequest request);
+	
+	/**
+	 * Optional processing before the service request is passed
+	 */
+	protected void processBeforeService() {
+		
+	}
+	
+	protected Objectify getObjectify() {
+		if(objectifyInstance == null)
+		{
+			objectifyInstance = ObjectifyService.begin();
+		}
+		return objectifyInstance;
+	}
 }

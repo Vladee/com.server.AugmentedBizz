@@ -10,6 +10,10 @@ public class Target extends DatastoreEntity
 	private String name;
 	private Key<Model> modelId;
 	
+	protected Target()
+	{
+	}
+	
 	public Target(Long id, String name, Key<Model> modelKey)
 	{
 		super(id);

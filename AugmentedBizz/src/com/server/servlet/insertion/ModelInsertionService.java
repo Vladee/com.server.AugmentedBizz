@@ -12,8 +12,7 @@ import com.server.servlet.BadServletParametersException;
 public class ModelInsertionService extends AbstractGetService {
 
 	@Override
-	public ServiceTransferEntity createServiceEntityFromRequest(
-			HttpServletRequest request) {
+	public ServiceTransferEntity createServiceEntityFromRequest(HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -25,8 +24,7 @@ public class ModelInsertionService extends AbstractGetService {
 	}
 
 	@Override
-	protected void checkQueryParameters(Map parameterMap)
-			throws BadServletParametersException {
+	protected void checkQueryParameters(Map parameterMap) throws BadServletParametersException {
 		// TODO Auto-generated method stub
 
 	}

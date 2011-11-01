@@ -11,6 +11,10 @@ public class Indicator extends DatastoreEntity
 	private Float positionY;
 	private Float positionZ;
 	
+	protected Indicator()
+	{
+	}
+	
 	public Indicator(Long id, Key<Target> target, String description, Float positionX, Float positionY, Float positionZ)
 	{
 		super(id);

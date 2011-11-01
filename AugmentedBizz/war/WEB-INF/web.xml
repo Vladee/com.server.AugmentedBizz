@@ -5,12 +5,36 @@ xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet>
-		<servlet-name>AugmentedBizz</servlet-name>
-		<servlet-class>com.server.AugmentedBizzServlet</servlet-class>
+		<servlet-name>TargetService</servlet-name>
+		<servlet-class>com.server.servlet.outbound.TargetService</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ModelService</servlet-name>
+		<servlet-class>com.server.servlet.outbound.ModelService</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>IndicatorService</servlet-name>
+		<servlet-class>com.server.servlet.outbound.IndicatorService</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>InitialInsertionService</servlet-name>
+		<servlet-class>com.server.servlet.insertion.InitialInsertionService</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>AugmentedBizz</servlet-name>
-		<url-pattern>/augmentedbizz</url-pattern>
+		<servlet-name>TargetService</servlet-name>
+		<url-pattern>/target-service</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ModelService</servlet-name>
+		<url-pattern>/model-service</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>IndicatorService</servlet-name>
+		<url-pattern>/indicator-service</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>InitialInsertionService</servlet-name>
+		<url-pattern>/init-insert</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

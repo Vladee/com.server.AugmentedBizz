@@ -11,10 +11,14 @@ public class Model extends DatastoreEntity
 	private float[] vertices;
 	private float[] normals;
 	private float[] texcoords;
-	private float[] indices;
+	private short[] indices;
 	private Blob textureData;
 	
-	public Model(Long id, Integer version, float[] vertices, float[] normals, float[] texcoords, float[] indices, Blob textureData)
+	private Model()
+	{
+	}
+	
+	public Model(Long id, Integer version, float[] vertices, float[] normals, float[] texcoords, short[] indices, Blob textureData)
 	{
 		super(id);
 		this.version = version;
@@ -70,12 +74,12 @@ public class Model extends DatastoreEntity
 		this.texcoords = texcoords;
 	}
 
-	public float[] getIndices() 
+	public short[] getIndices() 
 	{
 		return indices;
 	}
 
-	public void setIndices(float[] indices) 
+	public void setIndices(short[] indices) 
 	{
 		this.indices = indices;
 	}

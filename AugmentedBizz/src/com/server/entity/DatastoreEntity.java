@@ -25,7 +25,8 @@ public abstract class DatastoreEntity {
 		this.id = id;
 	}
 
-	public Long getId() {
+	public Long getId() 
+	{
 		return id;
 	}
 	

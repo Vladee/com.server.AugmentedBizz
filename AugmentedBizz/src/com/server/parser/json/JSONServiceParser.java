@@ -9,8 +9,12 @@ public class JSONServiceParser extends AbstractServiceParser {
 	protected Gson gson = new Gson();
 	
 	@Override
-	public String parseServiceTransferEntity(ServiceTransferEntity stEntity) 
+	public String parseServiceTransferEntity(ServiceTransferEntity stEntity) throws Exception 
 	{
+		if(stEntity == null)
+		{
+			throw(new Exception("Service entity is null"));
+		}
 		return gson.toJson(stEntity);
 	}
 

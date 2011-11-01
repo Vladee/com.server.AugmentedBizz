@@ -2,6 +2,12 @@ package com.server.entity.transfer;
 
 import com.server.entity.ServiceTransferEntity;
 
+/**
+ * Service entity for target information delivery
+ * 
+ * @author Vladi
+ *
+ */
 public class TargetServiceEntity extends ServiceTransferEntity {
 	
 	/**
@@ -33,18 +39,19 @@ public class TargetServiceEntity extends ServiceTransferEntity {
 	{
 		return targetState;
 	}
+	
 	public String getTargetName() 
 	{
 		return targetName;
 	}
+	
 	public Long getModelId() 
 	{
 		return modelId;
 	}
+	
 	public Integer getLatestModelVersion()
 	{
 		return latestModelVersion;
 	}
-	
-	
 }
