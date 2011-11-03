@@ -32,6 +32,7 @@ public abstract class AbstractGetService extends AbstractService {
 			processBeforeService();
 			String responseString = getServiceParser(req).parseServiceTransferEntity(createServiceEntityFromRequest(req));
 			resp.setContentType(getServiceContentType(req));
+			resp.setCharacterEncoding("UTF-8");
 			resp.getWriter().println(responseString);
 		}
 		catch(Exception e)
