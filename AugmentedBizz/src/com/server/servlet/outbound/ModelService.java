@@ -16,6 +16,7 @@ import com.server.parser.AbstractServiceParser;
 import com.server.parser.json.JSONServiceParser;
 import com.server.servlet.AbstractGetService;
 import com.server.servlet.BadServletParametersException;
+import com.server.util.TypeConversion;
 
 public class ModelService extends AbstractGetService {
 
@@ -59,6 +60,10 @@ public class ModelService extends AbstractGetService {
 			return null;
 		}
 		
-		return new ModelServiceEntity(model.getVertices(), model.getNormals(), model.getTexcoords(), model.getIndices(), Base64.encode(model.getTextureData().getBytes()));
+		return new ModelServiceEntity(TypeConversion.toFloatArrayFrom(model.getVertices().getBytes()), 
+									  TypeConversion.toFloatArrayFrom(model.getNormals().getBytes()), 
+									  TypeConversion.toFloatArrayFrom(model.getTexcoords().getBytes()), 
+									  TypeConversion.toShortArrayFrom(model.getIndices().getBytes()), 
+				                      Base64.encode(model.getTextureData().getBytes()));
 	}
 }

@@ -8,17 +8,17 @@ import com.server.entity.DatastoreEntity;
 public class Model extends DatastoreEntity
 {
 	private Integer version;
-	private float[] vertices;
-	private float[] normals;
-	private float[] texcoords;
-	private short[] indices;
+	private Blob vertices;//saves float[]
+	private Blob normals;//saves float[]
+	private Blob texcoords;//saves float[]
+	private Blob indices;//saves short[]
 	private Blob textureData;
 	
 	private Model()
 	{
 	}
 	
-	public Model(Long id, Integer version, float[] vertices, float[] normals, float[] texcoords, short[] indices, Blob textureData)
+	public Model(Long id, Integer version, Blob vertices, Blob normals, Blob texcoords, Blob indices, Blob textureData)
 	{
 		super(id);
 		this.version = version;
@@ -44,42 +44,42 @@ public class Model extends DatastoreEntity
 		return id;
 	}
 
-	public float[] getVertices() 
+	public Blob getVertices() 
 	{
 		return vertices;
 	}
 
-	public void setVertices(float[] vertices) 
+	public void setVertices(Blob vertices) 
 	{
 		this.vertices = vertices;
 	}
 
-	public float[] getNormals()
+	public Blob getNormals()
 	{
 		return normals;
 	}
 
-	public void setNormals(float[] normals)
+	public void setNormals(Blob normals)
 	{
 		this.normals = normals;
 	}
 
-	public float[] getTexcoords()
+	public Blob getTexcoords()
 	{
 		return texcoords;
 	}
 
-	public void setTexcoords(float[] texcoords) 
+	public void setTexcoords(Blob texcoords) 
 	{
 		this.texcoords = texcoords;
 	}
 
-	public short[] getIndices() 
+	public Blob getIndices() 
 	{
 		return indices;
 	}
 
-	public void setIndices(short[] indices) 
+	public void setIndices(Blob indices) 
 	{
 		this.indices = indices;
 	}

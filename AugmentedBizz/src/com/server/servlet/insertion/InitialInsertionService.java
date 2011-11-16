@@ -11,7 +11,6 @@ import com.server.entity.datastore.Indicator;
 import com.server.entity.datastore.Model;
 import com.server.entity.datastore.Target;
 import com.server.model.ModelFactory;
-import com.server.model.repository.DummyCubeModel;
 import com.server.parser.AbstractServiceParser;
 import com.server.parser.dummy.DummyServiceParser;
 import com.server.servlet.AbstractGetService;
@@ -39,6 +38,9 @@ public class InitialInsertionService extends AbstractGetService {
 		
 		logger.info("Insertion service - Inserting dummy cube data");
 		insertDummyCubeData();
+		
+		logger.info("Insertion service - Inserting teapot data");
+		insertTeapotData();
 	}
 
 	@Override
@@ -76,7 +78,7 @@ public class InitialInsertionService extends AbstractGetService {
 		Model cubeModel = null;
 		try 
 		{
-			cubeModel = ModelFactory.createDatastoreModelEntity(99999L, 1, new DummyCubeModel(), getServletContext().getResourceAsStream("/WEB-INF/image/cube.png"));
+			cubeModel = ModelFactory.createDatastoreModelEntity(99999L, 1, getServletContext().getResourceAsStream("/WEB-INF/obj/cube.obj"), getServletContext().getResourceAsStream("/WEB-INF/texture/cube.png"));
 		} 
 		catch (Exception e) {
 			logger.warning("Failed loading dummy cube: " + e.getMessage());
@@ -91,6 +93,31 @@ public class InitialInsertionService extends AbstractGetService {
 		Indicator dummyCubeIndicator2 = new Indicator(99002L, new Key<Target>(Target.class, targetCube.getId()), "Dummy error indicator 2 -- Test 2", .0f, -.5f, .25f);
 		getObjectify().put(dummyCubeIndicator1);
 		getObjectify().put(dummyCubeIndicator2);
+	}
+	
+	protected void insertTeapotData()
+	{
+		//put a teapot model into the datastore
+		Model teapotModel = null;
+		try 
+		{
+			teapotModel = ModelFactory.createDatastoreModelEntity(99998L, 1, getServletContext().getResourceAsStream("/WEB-INF/obj/teapot.obj"), getServletContext().getResourceAsStream("/WEB-INF/texture/teapot.png"));
+		} 
+		catch (Exception e) {
+			logger.warning("Failed loading teapot cube: " + e.getMessage());
+			return;
+		}
+		getObjectify().put(teapotModel);
+		//put a teapot target into the datastore
+		Target targetTeapot = new Target(99998L, "Teapot", new Key<Model>(Model.class, teapotModel.getId()));
+		getObjectify().put(targetTeapot);
+		//put teapot indicators into the datastore
+		Indicator dummyCubeIndicator1 = new Indicator(99011L, new Key<Target>(Target.class, targetTeapot.getId()), "Error indicator 1 -- Test 1", .5f, .5f, .5f);
+		Indicator dummyCubeIndicator2 = new Indicator(99012L, new Key<Target>(Target.class, targetTeapot.getId()), "Error indicator 2 -- Test 2", .0f, -.5f, .25f);
+		Indicator dummyCubeIndicator3 = new Indicator(99013L, new Key<Target>(Target.class, targetTeapot.getId()), "Error indicator 3 -- Test 3", 5.0f, 2.5f, -1.25f);
+		getObjectify().put(dummyCubeIndicator1);
+		getObjectify().put(dummyCubeIndicator2);
+		getObjectify().put(dummyCubeIndicator3);
 	}
 	
 }

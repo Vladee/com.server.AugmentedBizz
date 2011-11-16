@@ -6,12 +6,16 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
+import org.obj2openjl.Obj2OpenJL;
+import org.obj2openjl.model.RawOpenGLModel;
+
 import com.google.appengine.api.datastore.Blob;
 import com.server.entity.datastore.Model;
+import com.server.util.TypeConversion;
 
 public class ModelFactory {
 	
-	public static Model createDatastoreModelEntity(Long modelId, Integer version, BaseModel baseModel, InputStream textureStream) throws Exception
+	public static Model createDatastoreModelEntity(Long modelId, Integer version, InputStream modelObjectStream, InputStream textureStream) throws Exception
 	{
 		//write the texture data into a buffer
 		ByteArrayOutputStream bufferStream = new ByteArrayOutputStream();
@@ -27,7 +31,15 @@ public class ModelFactory {
 		textureStream.close();
 		bufferStream.flush();
 		
-		return new Model(modelId, version, baseModel.getVertices(), baseModel.getNormals(), baseModel.getTextureCoordinates(), baseModel.getIndices(), new Blob(bufferStream.toByteArray()));
+		Obj2OpenJL obj2openJl = new Obj2OpenJL();
+		RawOpenGLModel baseModel = obj2openJl.convert(modelObjectStream);
+		
+		return new Model(modelId, 
+						 version, 
+						 new Blob(TypeConversion.toByteArrayFrom(baseModel.getDataForGLDrawArrays().getVertices())), 
+						 new Blob(TypeConversion.toByteArrayFrom(baseModel.getDataForGLDrawArrays().getNormals())), 
+						 new Blob(TypeConversion.toByteArrayFrom(baseModel.getDataForGLDrawArrays().getTextureCoordinates())), 
+						 new Blob(TypeConversion.toByteArrayFrom(baseModel.getDataForGLDrawArrays().getIndices())), 
+						 new Blob(bufferStream.toByteArray()));
 	};
-	
 }
