@@ -36,8 +36,8 @@ public class InitialInsertionService extends AbstractGetService {
 		logger.info("Insertion service - Deleting all datastore data");
 		dropData();
 		
-		logger.info("Insertion service - Inserting dummy cube data");
-		insertDummyCubeData();
+		logger.info("Insertion service - Inserting dummy box data");
+		insertDummyBoxData();
 		
 		logger.info("Insertion service - Inserting teapot data");
 		insertTeapotData();
@@ -72,27 +72,27 @@ public class InitialInsertionService extends AbstractGetService {
 		getObjectify().delete(query3);
 	}
 
-	protected void insertDummyCubeData()
+	protected void insertDummyBoxData()
 	{
-		//put a dummy cube model into the datastore
-		Model cubeModel = null;
+		//put a dummy box model into the datastore
+		Model boxModel = null;
 		try 
 		{
-			cubeModel = ModelFactory.createDatastoreModelEntity(99999L, 1, getServletContext().getResourceAsStream("/WEB-INF/obj/cube.obj"), getServletContext().getResourceAsStream("/WEB-INF/texture/cube.png"));
+			boxModel = ModelFactory.createDatastoreModelEntity(99999L, 1, getServletContext().getResourceAsStream("/WEB-INF/obj/cube.obj"), getServletContext().getResourceAsStream("/WEB-INF/texture/cube.png"));
 		} 
 		catch (Exception e) {
-			logger.warning("Failed loading dummy cube: " + e.getMessage());
+			logger.warning("Failed loading dummy box: " + e.getMessage());
 			return;
 		}
-		getObjectify().put(cubeModel);
-		//put a dummy cube target into the datastore
-		Target targetCube = new Target(99999L, "Dummy cube", new Key<Model>(Model.class, cubeModel.getId()));
-		getObjectify().put(targetCube);
-		//put dummy cube indicators into the datastore
-		Indicator dummyCubeIndicator1 = new Indicator(99001L, new Key<Target>(Target.class, targetCube.getId()), "Dummy error indicator 1 -- Test 1", .5f, .5f, .5f);
-		Indicator dummyCubeIndicator2 = new Indicator(99002L, new Key<Target>(Target.class, targetCube.getId()), "Dummy error indicator 2 -- Test 2", .0f, -.5f, .25f);
-		getObjectify().put(dummyCubeIndicator1);
-		getObjectify().put(dummyCubeIndicator2);
+		getObjectify().put(boxModel);
+		//put a dummy box target into the datastore
+		Target targetBox = new Target(99999L, "Dummy box", new Key<Model>(Model.class, boxModel.getId()));
+		getObjectify().put(targetBox);
+		//put dummy box indicators into the datastore
+		Indicator dummyBoxIndicator1 = new Indicator(99001L, new Key<Target>(Target.class, targetBox.getId()), "Dummy error indicator 1 -- Test 1", .5f, .5f, .5f);
+		Indicator dummyBoxIndicator2 = new Indicator(99002L, new Key<Target>(Target.class, targetBox.getId()), "Dummy error indicator 2 -- Test 2", .0f, -.5f, .25f);
+		getObjectify().put(dummyBoxIndicator1);
+		getObjectify().put(dummyBoxIndicator2);
 	}
 	
 	protected void insertTeapotData()

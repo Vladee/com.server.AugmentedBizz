@@ -6,8 +6,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-import org.obj2openjl.Obj2OpenJL;
-import org.obj2openjl.model.RawOpenGLModel;
+import org.obj2openjl.v2.Obj2OpenJL;
+import org.obj2openjl.v2.model.RawOpenGLModel;
 
 import com.google.appengine.api.datastore.Blob;
 import com.server.entity.datastore.Model;
