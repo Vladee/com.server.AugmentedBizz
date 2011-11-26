@@ -78,7 +78,7 @@ public class InitialInsertionService extends AbstractGetService {
 		Model boxModel = null;
 		try 
 		{
-			boxModel = ModelFactory.createDatastoreModelEntity(99999L, 1, getServletContext().getResourceAsStream("/WEB-INF/obj/cube.obj"), getServletContext().getResourceAsStream("/WEB-INF/texture/cube.png"));
+			boxModel = ModelFactory.createDatastoreModelEntity(99999L, 1, getServletContext().getResourceAsStream("/WEB-INF/obj/box.obj"), getServletContext().getResourceAsStream("/WEB-INF/texture/box.png"));
 		} 
 		catch (Exception e) {
 			logger.warning("Failed loading dummy box: " + e.getMessage());
