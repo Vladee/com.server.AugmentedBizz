@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 import org.obj2openjl.v2.Obj2OpenJL;
+import org.obj2openjl.v2.model.OpenGLModelData;
 import org.obj2openjl.v2.model.RawOpenGLModel;
 
 import com.google.appengine.api.datastore.Blob;
@@ -30,14 +31,14 @@ public class ModelFactory {
 		textureStream.close();
 		bufferStream.flush();
 		
-		RawOpenGLModel baseModel = obj2openJl.convert(modelObjectStream).center().normalize();
+		OpenGLModelData baseModel = obj2openJl.convert(modelObjectStream).center().normalize().getDataForGLDrawElements();
 		
 		return new Model(modelId, 
 						 version, 
-						 new Blob(TypeConversion.toByteArrayFrom(baseModel.getDataForGLDrawArrays().getVertices())), 
-						 new Blob(TypeConversion.toByteArrayFrom(baseModel.getDataForGLDrawArrays().getNormals())), 
-						 new Blob(TypeConversion.toByteArrayFrom(baseModel.getDataForGLDrawArrays().getTextureCoordinates())), 
-						 new Blob(TypeConversion.toByteArrayFrom(baseModel.getDataForGLDrawArrays().getIndices())), 
+						 new Blob(TypeConversion.toByteArrayFrom(baseModel.getVertices())), 
+						 new Blob(TypeConversion.toByteArrayFrom(baseModel.getNormals())), 
+						 new Blob(TypeConversion.toByteArrayFrom(baseModel.getTextureCoordinates())), 
+						 new Blob(TypeConversion.toByteArrayFrom(baseModel.getIndices())), 
 						 new Blob(bufferStream.toByteArray()));
 	};
 }
