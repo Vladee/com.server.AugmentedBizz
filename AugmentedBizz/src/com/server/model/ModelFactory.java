@@ -13,8 +13,6 @@ import com.server.util.TypeConversion;
 
 public class ModelFactory {
 	
-	private static Obj2OpenJL obj2openJl = new Obj2OpenJL();
-	
 	public static Model createDatastoreModelEntity(Long modelId, Integer version, InputStream modelObjectStream, InputStream textureStream) throws Exception
 	{
 		//write the texture data into a buffer
@@ -31,6 +29,7 @@ public class ModelFactory {
 		textureStream.close();
 		bufferStream.flush();
 		
+		Obj2OpenJL obj2openJl = new Obj2OpenJL();
 		OpenGLModelData baseModel = obj2openJl.convert(modelObjectStream).normalize().center().getDataForGLDrawElements();
 		
 		return new Model(modelId, 
