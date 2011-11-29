@@ -41,6 +41,9 @@ public class InitialInsertionService extends AbstractGetService {
 		
 		logger.info("Insertion service - Inserting teapot data");
 		insertTeapotData();
+		
+		logger.info("Insertion service - Inserting generator data");
+		insertGeneratorData();
 	}
 
 	@Override
@@ -118,6 +121,31 @@ public class InitialInsertionService extends AbstractGetService {
 		getObjectify().put(dummyCubeIndicator1);
 		getObjectify().put(dummyCubeIndicator2);
 		getObjectify().put(dummyCubeIndicator3);
+	}
+	
+	protected void insertGeneratorData()
+	{
+		//put a generator model into the datastore
+		Model generatorModel = null;
+		try 
+		{
+			generatorModel = ModelFactory.createDatastoreModelEntity(11001L, 1, getServletContext().getResourceAsStream("/WEB-INF/obj/generator.rotated.obj"), getServletContext().getResourceAsStream("/WEB-INF/texture/generator.png"));
+		} 
+		catch (Exception e) {
+			logger.warning("Failed loading generator cube: " + e.getMessage());
+			return;
+		}
+		getObjectify().put(generatorModel);
+		//put a generator target into the datastore
+		Target targetGenerator = new Target(11001L, "Generator #107", new Key<Model>(Model.class, generatorModel.getId()));
+		getObjectify().put(targetGenerator);
+		//put generator indicators into the datastore
+		Indicator indicator1 = new Indicator(11011L, new Key<Target>(Target.class, targetGenerator.getId()), "Sensor am Druckventil EGV1 defekt", 0.4746724f, 0.1708820f, -0.1424017f);
+		Indicator indicator2 = new Indicator(11012L, new Key<Target>(Target.class, targetGenerator.getId()), "Planm‰ﬂige Wartung der Zuleitung f‰llig", 0.2848034f, -0.1424017f, 0.0f);
+		Indicator indicator3 = new Indicator(11013L, new Key<Target>(Target.class, targetGenerator.getId()), "Mitarbeiter bemerkte Schleifger‰usche im Spulengeh‰use", 0.0f, 0.1898689f, 0.0f);
+		getObjectify().put(indicator1);
+		getObjectify().put(indicator2);
+		getObjectify().put(indicator3);
 	}
 	
 }
