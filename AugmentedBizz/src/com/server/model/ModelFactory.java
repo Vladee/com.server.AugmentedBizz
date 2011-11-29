@@ -31,7 +31,7 @@ public class ModelFactory {
 		textureStream.close();
 		bufferStream.flush();
 		
-		OpenGLModelData baseModel = obj2openJl.convert(modelObjectStream).center().normalize().getDataForGLDrawElements();
+		OpenGLModelData baseModel = obj2openJl.convert(modelObjectStream).normalize().center().getDataForGLDrawElements();
 		
 		return new Model(modelId, 
 						 version, 
