@@ -3,9 +3,9 @@ package com.server.model;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
-import org.obj2openjl.v2.Obj2OpenJL;
-import org.obj2openjl.v2.model.OpenGLModelData;
-import org.obj2openjl.v2.model.RawOpenGLModel;
+import org.obj2openjl.v3.Obj2OpenJL;
+import org.obj2openjl.v3.model.BoundingBox3D;
+import org.obj2openjl.v3.model.OpenGLModelData;
 
 import com.google.appengine.api.datastore.Blob;
 import com.server.entity.datastore.Model;
@@ -29,8 +29,13 @@ public class ModelFactory {
 		textureStream.close();
 		bufferStream.flush();
 		
+		//convert and translate the model
 		Obj2OpenJL obj2openJl = new Obj2OpenJL();
-		OpenGLModelData baseModel = obj2openJl.convert(modelObjectStream).normalize().center().getDataForGLDrawElements();
+		org.obj2openjl.v3.model.RawOpenGLModel rawModel = obj2openJl.convert(modelObjectStream).normalize().center();
+		BoundingBox3D bBox = rawModel.getBoundingBox();
+		float translationZ = bBox.getLengthZ() / 2.0f;
+		rawModel.translate(0.0f, 0.0f, translationZ);
+		OpenGLModelData baseModel = rawModel.getDataForGLDrawElements();
 		
 		return new Model(modelId, 
 						 version, 
